@@ -17,22 +17,24 @@ def index():
         print("Status Code: ", resp.status_code)
         print(resp.headers)
         print("*" * 100)
-        if resp.headers['Content-Type'].strip() == "application/json":
+        if "application/json" in resp.headers['Content-Type'].strip():
+            print("111"*100)
             data = json.loads(resp.text)
             print("*" * 100)
             print(data)
             print("*" * 100)
             try:
-                number = data['data']['user']['edge_followed_by']['count']
+                number = str(data['data']['user']['edge_followed_by']['count']).strip()
             except KeyError:
                 number = None
             if number is not None:
-                return Response(response=json.dumps({'number': number.strip()}), status=200,
+                return Response(response=json.dumps({'number': int(number)}), status=200,
                                 mimetype='application/json')
             else:
                 return Response(response=json.dumps({'error': "Could not found count in the API"}), status=500,
                                 mimetype='application/json')
         else:
+            print("222"*100)
             return Response(response=json.dumps({'error': "Instagram API not returning valid JSON"}), status=500,
                             mimetype='application/json')
     except Exception as e:

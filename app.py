@@ -22,17 +22,17 @@ def index():
         except KeyError:
             number = None
         if number is not None:
-            return Response(response=json.dumps({'number': number}, status=200,
-                                                mimetype='application/json'))
+            return Response(response=json.dumps({'number': number}), status=200,
+                            mimetype='application/json')
         else:
-            return Response(response=json.dumps({'error': "Could not found count in the API"}, status=500,
-                                                mimetype='application/json'))
+            return Response(response=json.dumps({'error': "Could not found count in the API"}), status=500,
+                            mimetype='application/json')
     except Exception as e:
         print("*" * 30)
         print(data)
         print("*" * 30)
-        return Response(response=json.dumps({'error': str(e)}, status=500,
-                                            mimetype='application/json'))
+        return Response(response=json.dumps({'error': str(e)}), status=500,
+                        mimetype='application/json')
 
 
 if __name__ == "__main__":

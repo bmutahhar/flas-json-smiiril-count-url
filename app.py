@@ -13,10 +13,14 @@ def index():
               "%22id%22%3A%22256744793%22%2C%22first%22%3A12%7D "
         user_agent = {"User-Agent": "Mozilla/5.0"}
         resp = requests.get(url, headers=user_agent)
+        print("*" * 100)
+        print("Status Code: ", resp.status_code)
+        print(resp.text)
+        print("*" * 100)
         data = json.loads(resp.text)
-        print("*" * 30)
+        print("*" * 100)
         print(data)
-        print("*" * 30)
+        print("*" * 100)
         try:
             number = data['data']['user']['edge_followed_by']['count']
         except KeyError:
@@ -28,9 +32,9 @@ def index():
             return Response(response=json.dumps({'error': "Could not found count in the API"}), status=500,
                             mimetype='application/json')
     except Exception as e:
-        print("*" * 30)
+        print("*" * 100)
         print(data)
-        print("*" * 30)
+        print("*" * 100)
         return Response(response=json.dumps({'error': str(e)}), status=500,
                         mimetype='application/json')
 

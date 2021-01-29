@@ -13,7 +13,7 @@ def index():
               "%22id%22%3A%22256744793%22%2C%22first%22%3A12%7D "
         user_agent = {"User-Agent": "Mozilla/5.0"}
         resp = requests.get(url, headers=user_agent)
-        data = resp.json()
+        data = json.loads(resp.text)
         print("*" * 30)
         print(data)
         print("*" * 30)

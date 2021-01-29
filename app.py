@@ -15,7 +15,7 @@ def index():
         resp = requests.get(url, headers=user_agent)
         print("*" * 100)
         print("Status Code: ", resp.status_code)
-        print(resp.text)
+        print(resp.headers)
         print("*" * 100)
         data = json.loads(resp.text)
         print("*" * 100)

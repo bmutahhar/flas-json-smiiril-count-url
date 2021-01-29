@@ -12,6 +12,7 @@ def index():
         user_agent = {"User-Agent": "Mozilla/5.0"}
         resp = requests.get(url, headers=user_agent)
         data = resp.json()
+        print(data)
         try:
             number = data['data']['user']['edge_followed_by']['count']
         except KeyError:

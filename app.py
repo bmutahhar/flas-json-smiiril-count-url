@@ -1,5 +1,7 @@
+import json
+
 import requests
-from flask import Flask
+from flask import Flask, Response
 
 app = Flask(__name__)
 
@@ -12,17 +14,25 @@ def index():
         user_agent = {"User-Agent": "Mozilla/5.0"}
         resp = requests.get(url, headers=user_agent)
         data = resp.json()
+        print("*" * 30)
         print(data)
+        print("*" * 30)
         try:
             number = data['data']['user']['edge_followed_by']['count']
         except KeyError:
             number = None
         if number is not None:
-            return {'number': number}
+            return Response(response=json.dumps({'number': number}, status=200,
+                                                mimetype='application/json'))
         else:
-            return {'error': "Count not found in the API"}
+            return Response(response=json.dumps({'error': "Could not found count in the API"}, status=500,
+                                                mimetype='application/json'))
     except Exception as e:
-        return {'error': str(e)}
+        print("*" * 30)
+        print(data)
+        print("*" * 30)
+        return Response(response=json.dumps({'error': str(e)}, status=500,
+                                            mimetype='application/json'))
 
 
 if __name__ == "__main__":
